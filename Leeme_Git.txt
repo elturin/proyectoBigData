@@ -1,0 +1,13 @@
+Sentencias Git utilizadas:
+=========================
+
+
+git init: para inicial el repositorio
+git commit -m: para agregar un comentario
+git add .: para agregar todos los archivos
+git remote add origin "link en github": del repositorio
+git push -u origin master: le decimos que ingrese los archivos a ese repositorio.
+
+
+https://github.com/Yccahuanticom/BD_Seguro-Vehicular.git
+

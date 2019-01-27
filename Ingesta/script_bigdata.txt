@@ -1,0 +1,70 @@
+
+#SCRIPT INGESTA
+
+hdfs dfs -mkdir /labotica/data/clientes
+hdfs dfs -mkdir /labotica/data/cobranzas
+hdfs dfs -mkdir /labotica/data/vehiculos
+
+hdfs dfs -put BD_CLIENTES.csv /labotica/data/clientes
+hdfs dfs -put BD_COBRANZAS.csv /labotica/data/cobranzas
+hdfs dfs -put BD_INTERAC_VEH.csv /labotica/data/vehiculos
+
+#hive
+
+hive
+create database labotica;
+
+#Salir con Control+d
+
+beeline -u jdbc:hive2://localhost:10000/labotica
+
+create table labotica.clientes(
+id string,
+sexo string,
+fecha string,
+ubicacion string,
+departamento string,
+ubigeo string,
+cuc string
+)
+COMMENT 'Tabla clientes del grupo labotica'
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE
+LOCATION '/labotica/data/clientes'
+tblproperties("skip.header.line.count" = "1")
+;
+
+create table labotica.interac_vehiculo(
+id string,
+descripcion string,
+periodo string,
+cuc string
+)
+COMMENT 'Tabla interaccion de vehiculos del grupo labotica'
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE
+LOCATION '/labotica/data/vehiculos'
+tblproperties("skip.header.line.count" = "1")
+;
+
+create table labotica.cobranza(
+id string,
+id2 string,
+periodo string,
+num_factura string,
+monto string,
+cuc string,
+p_auto string
+)
+COMMENT 'Tabla cobranza del grupo labotica'
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE
+LOCATION '/labotica/data/vehiculos'
+tblproperties("skip.header.line.count" = "1")
+;
